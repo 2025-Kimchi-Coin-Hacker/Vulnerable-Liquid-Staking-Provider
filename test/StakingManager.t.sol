@@ -57,7 +57,7 @@ contract StakingManagerTest is Test {
     function testValidatorLoopDoS() public {
         // Anyone can spam the validator set.
         for (uint256 i; i < 50; i++) {
-            manager.registerValidator(address(uint160(i + 1)));
+            manager.registerValidator(address(uint160(i + 1)), bytes32(uint256(i + 1)));
         }
 
         address user = address(0x1234);
