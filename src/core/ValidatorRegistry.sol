@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {AccessManager} from "./access/AccessManager.sol";
+import {AccessManager} from "../access/AccessManager.sol";
 
 contract ValidatorRegistry {
     struct Validator {
@@ -20,23 +20,17 @@ contract ValidatorRegistry {
     constructor(address _accessManager) {
         accessManager = AccessManager(_accessManager);
     }
-    
+
     function addValidator(address _operator, bytes calldata _pubkey) external {
-        validators.push(Validator({
-            operator: _operator,
-            pubkey: _pubkey,
-            isActive: true,
-            totalStake: 0
-        }));
+        validators.push(Validator({operator: _operator, pubkey: _pubkey, isActive: true, totalStake: 0}));
         emit ValidatorAdded(_operator, _pubkey);
     }
 
     function getValidatorCount() external view returns (uint256) {
         return validators.length;
     }
-    
-    function distributeStakeToValidators(uint256 totalAmount) external {
 
+    function distributeStakeToValidators(uint256 totalAmount) external {
         uint256 count = validators.length;
         if (count == 0) return;
 

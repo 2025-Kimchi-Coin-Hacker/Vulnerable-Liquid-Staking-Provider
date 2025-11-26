@@ -22,7 +22,7 @@ contract RewardDistributor {
         uint256 amount = rewards[msg.sender];
         require(amount > 0, "No rewards to claim");
 
-        (bool success, ) = msg.sender.call{value: amount}("");
+        (bool success,) = msg.sender.call{value: amount}("");
         require(success, "Transfer failed");
 
         rewards[msg.sender] = 0;

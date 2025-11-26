@@ -54,7 +54,7 @@ contract StakingManager {
         }
 
         lsToken.mint(msg.sender, sharesToMint);
-        
+
         validatorRegistry.distributeStakeToValidators(msg.value);
 
         emit Staked(msg.sender, msg.value, sharesToMint);
@@ -70,7 +70,7 @@ contract StakingManager {
 
         lsToken.burn(msg.sender, shares);
 
-        (bool success, ) = msg.sender.call{value: ethAmount}("");
+        (bool success,) = msg.sender.call{value: ethAmount}("");
         require(success, "Transfer failed");
 
         emit Unstaked(msg.sender, ethAmount, shares);
